@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { blue, red, white, yellow } from '../utils/colors';
+import { blue, red, white, yellow, gray } from '../utils/colors';
 import { receiveDecks, getDecksFromStorage } from '../actions';
 import DeckListItem from './DeckListItem';
 import Button from './Button';
@@ -35,8 +35,8 @@ class DeckListView extends Component {
                 )) :
                     <TouchableOpacity>
                         <View>
-                            <Text style={styles.headerText}>You haven't made any deck!</Text>
-                            <Button title="Create Deck Here!" onPress={this.goToCreateDeck} />
+                            <Text style={styles.headerText}>There is not any deck yet!</Text>
+                            <Button title="Create Deck!" onPress={this.goToCreateDeck} />
                         </View>
                     </TouchableOpacity>
                 }
@@ -47,9 +47,10 @@ class DeckListView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 4,
-        borderWidth: 0.5,
-        borderColor: blue,
+        backgroundColor: white,
+        padding: 30,
+        marginBottom: 10,
+        justifyContent: 'center'
     },
     headerText: {
         padding: 20,
@@ -59,23 +60,8 @@ const styles = StyleSheet.create({
     cardText: {
         paddingBottom: 20,
         fontSize: 20,
-        color: white,
+        color: gray,
         textAlign: 'center'
-    },
-    title: {
-        fontSize: 19,
-        fontWeight: 'bold',
-    },
-    activeTitle: {
-        color: red
-    },
-    deck: {
-        margin: 10,
-        padding: 10,
-        borderRadius: 4,
-        borderWidth: 0.5,
-        borderColor: blue,
-        backgroundColor: yellow
     }
 });
 

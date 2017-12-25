@@ -1,6 +1,7 @@
 import { StackNavigator } from 'react-navigation';
 import Tabs from './Tabs';
 import DeckListItem from './DeckListItem';
+import DeckDetailView from './DeckDetailView';
 import { blue, purple } from '../utils/colors';
 
 const MainNavigator = StackNavigator({
@@ -12,6 +13,15 @@ const MainNavigator = StackNavigator({
     },
     DeckListItem: {
         screen: DeckListItem,
+        navigationOptions: {
+            headerTintColor: blue,
+            headerStyle: {
+                backgroundColor: purple
+            }
+        }
+    },
+    DeckDetail: {
+        screen: DeckDetailView,
         navigationOptions: {
             headerTintColor: blue,
             headerStyle: {
