@@ -1,63 +1,90 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, FlatList, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { yellow } from '../utils/colors';
-import { fetchDecks } from '../utils/api';
-import { receiveDecks } from '../actions';
+import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { blue, red, white, yellow } from '../utils/colors';
+import { receiveDecks, getDecksFromStorage } from '../actions';
+import DeckListItem from './DeckListItem';
+import Button from './Button';
 
 class DeckListView extends Component {
 
     componentDidMount() {
-        const { dispatch } = this.props;
-        fetchDecks()
-            .then(decks => {
-                console.log(JSON.stringify(decks))
-                return dispatch(receiveDecks(decks))
-            })
-            .catch(error => console.log(error))
+        const { getDecks } = this.props;
+        getDecks();
     }
 
-    renderItem = ({ item }) => (
-        <View style={styles.item}>
-            <TouchableOpacity onPress={() => alert('hola')}>
-                <Text>Deck item</Text>
-                {/* <SingleDeck title={item.title} questions={item.card} /> */}
-            </TouchableOpacity>
-        </View>
-    );
+    goToCreateDeck = () => {
+        const { navigation } = this.props;
+        navigation.navigate('CreateDeck');
+    }
 
     render() {
-        let data = Object.values(this.props.decks).sort(
-            (a, b) => a.title > b.title,
-        )
-
+        const { decks } = this.props;
         return (
-            <View style={styles.container}>
-                <Text>DeckListView 2</Text>
-                <FlatList data={data} renderItem={this.renderItem} keyExtractor={(item, index) => index} />
-            </View>
+            <ScrollView>
+                {decks !== null ? Object.keys(decks).map(deck => (
+                    <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate(
+                        'DeckDetail',
+                        { deck: { title: deck } }
+                    )} key={deck} >
+                        <View>
+                            <Text style={styles.headerText}>{decks[deck].title}</Text>
+                            <Text style={styles.cardText}>{decks[deck].questions.length} cards</Text>
+                        </View>
+                    </TouchableOpacity>
+                )) :
+                    <TouchableOpacity>
+                        <View>
+                            <Text style={styles.headerText}>You haven't made any deck!</Text>
+                            <Button title="Create Deck Here!" onPress={this.goToCreateDeck} />
+                        </View>
+                    </TouchableOpacity>
+                }
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: yellow,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        height: Dimensions.get('window').height,
-        padding: 20,
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: blue,
     },
-    item: {
-        width: 400,
-        margin: 0,
-        padding: 0,
+    headerText: {
+        padding: 20,
+        fontSize: 30,
+        textAlign: 'center'
+    },
+    cardText: {
+        paddingBottom: 20,
+        fontSize: 20,
+        color: white,
+        textAlign: 'center'
+    },
+    title: {
+        fontSize: 19,
+        fontWeight: 'bold',
+    },
+    activeTitle: {
+        color: red
+    },
+    deck: {
+        margin: 10,
+        padding: 10,
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: blue,
+        backgroundColor: yellow
     }
 });
 
-const mapStateToProps = (state, ownProps) => ({
-    decks: state,
-    navigate: ownProps.navigation.navigate
+const mapStateToProps = (state) => ({
+    decks: state
 });
 
-export default connect(mapStateToProps)(DeckListView);
+const mapDispatchToProps = (dispatch) => ({
+    getDecks: () => dispatch(getDecksFromStorage())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckListView);

@@ -1,19 +1,19 @@
-import { RECEIVE_DECKS, ADD_DECK } from '../actions'
+import { RECEIVE_DECKS, ADD_DECK } from '../actions';
 
 function decks(state = {}, action) {
-    switch(action) {
+    switch (action.type) {
         case RECEIVE_DECKS:
+            return JSON.parse(action.decks);
+        case ADD_DECK:
             return {
                 ...state,
-                ...action.decks
+                [action.newDeck]: {
+                    title: action.newDeck,
+                    questions: []
+                }
             }
-        case ADD_DECK: 
-            return {
-                ...state,
-                ...action.deck
-            }
-        default: 
-            return state; 
+        default:
+            return state;
     }
 }
 

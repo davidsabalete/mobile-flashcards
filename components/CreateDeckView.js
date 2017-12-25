@@ -1,25 +1,63 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
 import { yellow } from '../utils/colors';
+import Button from './Button';
+import { addDeck, addDeckToStorage } from '../actions';
 
 class CreateDeckView extends Component {
+    state = {
+        newDeck: ''
+    }
+
+    handleChangeText = (text) => {
+        this.setState({ newDeck: text });
+    }
+
+    createDeck = () => {
+        const { newDeck } = this.state;
+        const { addDeck, navigation } = this.props;
+        this.setState({ newDeck: '' });
+        addDeck(newDeck);
+        navigation.navigate('DeckDetail', { deck: { title: newDeck } });
+    }
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text>CreateDeckView</Text>
-            </View>
-        )
+            <KeyboardAvoidingView behaviour='padding' style={styles.container}>
+                <Text style={styles.headerText}>Enter new deck title:</Text>
+                <TextInput style={styles.inputText}
+                    placeholder='Deck title here!'
+                    onChangeText={this.handleChangeText}
+                    value={this.state.newDeck}
+                />
+                <Button title="Create Deck" onPress={this.createDeck} />
+            </KeyboardAvoidingView>
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: yellow,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        height: Dimensions.get('window').height,
-        padding: 20
+        flex: 1,
+    },
+    headerText: {
+        fontSize: 32,
+        padding: 20,
+        textAlign: 'center'
+    },
+    inputText: {
+        height: 50,
+        fontSize: 24,
+        textAlign: 'center',
+        marginBottom: 20,
     }
 });
 
-export default CreateDeckView
+const mapDispatchToProps = (dispatch) => ({
+    addDeck: (newDeck) => dispatch(addDeckToStorage({
+        newDeck
+    }))
+})
+
+export default connect(null, mapDispatchToProps)(CreateDeckView);
