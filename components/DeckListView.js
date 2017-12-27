@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { blue, red, white, yellow, gray } from '../utils/colors';
 import { receiveDecks, getDecksFromStorage } from '../actions';
-import DeckListItem from './DeckListItem';
 import Button from './Button';
 
 class DeckListView extends Component {
