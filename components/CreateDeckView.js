@@ -31,7 +31,10 @@ class CreateDeckView extends Component {
                     onChangeText={this.handleChangeText}
                     value={this.state.newDeck}
                 />
-                <Button title="Create Deck" onPress={this.createDeck} />
+                <Button title="Create Deck"
+                    textColor={{ color: yellow }}
+                    onPress={this.createDeck}
+                    />
             </KeyboardAvoidingView>
         );
     }
