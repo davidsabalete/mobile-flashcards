@@ -10,6 +10,10 @@ class DeckDetailView extends Component {
         title: navigation.state.params.deck.title + ' Deck Detail'
     });
 
+    componentDidMount() {
+        const { deck } = this.props;
+    }
+
     goToAddCard = () => {
         const { navigation, deck } = this.props;
         navigation.navigate('AddCard', { deck: deck });
@@ -60,20 +64,18 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         padding: 20,
-        marginBottom: 20,
         color: gray
     },
     btn: {
-        backgroundColor: blue,
         marginTop: 20
     }
 });
 
 const mapStateToProps = (state, ownProps) => {
-    const deck = ownProps.navigation.state.params;
+    const { deck } = ownProps.navigation.state.params;
     if (typeof deck === 'object') {
         return {
-            deck: state[deck.deck.title]
+            deck: state[deck.title]
         }
     } else {
         return {

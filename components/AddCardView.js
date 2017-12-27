@@ -48,9 +48,9 @@ class AddCardView extends Component {
                         placeholder="Enter your answer here!"
                         value={this.state.answer}
                         onChangeText={this.handleChangeAnswer} />
-                    <Button
-                        style={styles.btnAddCard}
-                        title="Save Card"
+                    <Button title="Save Card"
+                        style={styles.btn}
+                        textColor={{ color: yellow }}
                         onPress={this.addCard}
                         />
                 </View>
@@ -77,8 +77,9 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         marginBottom: 20
     },
-    btnAddCard: {
-        padding: 20, marginBottom: 20
+    btn: {
+        padding: 20, 
+        marginBottom: 20
     }
 });
 
