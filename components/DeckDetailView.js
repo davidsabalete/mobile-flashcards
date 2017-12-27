@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { blue, red, white, yellow, gray, purple } from '../utils/colors';
+import { blue, red, white, yellow, gray, purple, black } from '../utils/colors';
 import Button from './Button';
 
 class DeckDetailView extends Component {
+
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.state.params.deck.title + ' Deck Detail'
+    });
 
     goToAddCard = () => {
         const { navigation, deck } = this.props;
@@ -13,7 +17,7 @@ class DeckDetailView extends Component {
 
     goToQuiz = () => {
         const { navigation, deck } = this.props;
-        navigation.navigate('QuizView', { deck: deck });
+        navigation.navigate('Quiz', { deck: deck });
     }
 
     render() {
@@ -24,8 +28,16 @@ class DeckDetailView extends Component {
                 <View>
                     <Text style={styles.headerText}>{deck.title}</Text>
                     <Text style={styles.cardText}> {deck.questions.length} cards </Text>
-                    <Button title="Add Cards" onPress={this.goToAddCard} style={styles.addCardBtn} textColor={{ color: 'black' }} />
-                    <Button title="Start Quiz" onPress={this.goToQuiz} />
+                    <Button title="Add Card"
+                        style={styles.btn}
+                        textColor={{ color: yellow }}
+                        onPress={this.goToAddCard}
+                    />
+                    <Button title="Start Quiz"
+                        style={styles.btn}
+                        textColor={{ color: yellow }}
+                        onPress={this.goToQuiz}
+                    />
                 </View>
             </View>
         );
@@ -51,11 +63,9 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: gray
     },
-    addCardBtn: {
-        backgroundColor: white,
-        borderColor: purple,
-        borderWidth: 2,
-        marginBottom: 20
+    btn: {
+        backgroundColor: blue,
+        marginTop: 20
     }
 });
 
