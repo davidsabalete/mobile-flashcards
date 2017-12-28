@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { blue, green, red, white, yellow, gray, purple } from '../utils/colors';
 import Button from './Button';
+import { clearNotification, setNotification } from "../actions";
 
 class QuizView extends Component {
 
@@ -55,7 +56,7 @@ class QuizView extends Component {
                 quizCompleted: true,
                 currentCard: 0
             }));
-            // clearNotification().then(setNotification);
+            clearNotification().then(setNotification);
         }
     }
 
