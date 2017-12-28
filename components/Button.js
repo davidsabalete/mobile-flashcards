@@ -1,12 +1,16 @@
 import React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { purple, white } from '../utils/colors';
+import { purple, white, gray } from '../utils/colors';
 
-export default function Button({ onPress, title, style, textColor }) {
+export default function Button({ onPress, title, style, textColor, disabled }) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={onPress} style={[styles.submitBtn, style]}>
-                <Text style={[styles.submitBtnText, textColor]}>{title}</Text>
+            <TouchableOpacity 
+                style={[styles.submitBtn, style, disabled ? styles.btnDisabled : '']} 
+                onPress={onPress} 
+                disabled={disabled}
+                >
+                <Text style={[styles.submitBtnText, disabled ? styles.btnTextDisabled : textColor]}>{title}</Text>
             </TouchableOpacity>
         </View>
     )
@@ -15,7 +19,8 @@ export default function Button({ onPress, title, style, textColor }) {
 const styles = StyleSheet.create({
     container: {
         width: 200,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginTop: 20
     },
     submitBtn: {
         borderRadius: 5,
@@ -27,5 +32,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: white,
         fontSize: 20,
+    },
+    btnTextDisabled: {
+        color: white
+    },
+    btnDisabled: {
+        backgroundColor: '#ccc'
     }
 })

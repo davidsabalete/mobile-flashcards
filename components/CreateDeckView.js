@@ -7,11 +7,15 @@ import { addDeck, addDeckToStorage } from '../actions';
 
 class CreateDeckView extends Component {
     state = {
-        newDeck: ''
+        newDeck: '',
+        isEnabled: false
     }
 
     handleChangeText = (text) => {
         this.setState({ newDeck: text });
+        if (text.length > 0) {
+            this.setState({ isEnabled: true });
+        }
     }
 
     createDeck = () => {
@@ -34,6 +38,7 @@ class CreateDeckView extends Component {
                 <Button title="Create Deck"
                     textColor={{ color: yellow }}
                     onPress={this.createDeck}
+                    disabled={!this.state.isEnabled}
                     />
             </KeyboardAvoidingView>
         );

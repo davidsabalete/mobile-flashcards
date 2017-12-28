@@ -6,12 +6,19 @@ import Button from './Button';
 
 class DeckDetailView extends Component {
 
+    state = {
+        isEnabled: false
+    }
+
     static navigationOptions = ({ navigation }) => ({
         title: navigation.state.params.deck.title + ' Deck Detail'
     });
 
     componentDidMount() {
         const { deck } = this.props;
+        if (deck.questions.length > 0) {
+            this.setState({ isEnabled: true });
+        }
     }
 
     goToAddCard = () => {
@@ -38,9 +45,9 @@ class DeckDetailView extends Component {
                         onPress={this.goToAddCard}
                     />
                     <Button title="Start Quiz"
-                        style={styles.btn}
                         textColor={{ color: yellow }}
                         onPress={this.goToQuiz}
+                        disabled={!this.state.isEnabled}
                     />
                 </View>
             </View>
