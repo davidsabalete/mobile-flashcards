@@ -1,3 +1,4 @@
+import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import DeckListView from './DeckListView';
 import CreateDeckView from './CreateDeckView';
