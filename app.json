@@ -2,19 +2,19 @@
   "expo": {
     "sdkVersion": "23.0.0",
     "orientation": "portrait",
-    "name": "MobileFlashCards",
+    "name": "Mobile-FlashCards",
     "description": "Mobile-FlashCards app for Udacity React Nanodegree.",
     "slug": "FlashCards",
     "version": "1.0",
-    "icon": "https://goo.gl/Do2UUW",
+    "icon": "https://goo.gl/rBmnuZ",
     "notification": {
-      "icon": "https://goo.gl/Do2UUW"
+      "icon": "https://goo.gl/rBmnuZ"
     },
     "ios": {
       "bundleIdentifier": "org.flashcards.exp"
     },
     "android": {
-      "bundleIdentifier": "org.flashcards.exp"
+      "package": "org.flashcards.exp"
     }
   }
 }
