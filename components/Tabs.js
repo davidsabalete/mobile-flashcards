@@ -10,7 +10,7 @@ const Tabs = TabNavigator({
         screen: DeckListView,
         navigationOptions: {
             tabBarLabel: 'Decks',
-            tabBarIcon: () => <FontAwesome name='th-lists' size={30} />
+            tabBarIcon: () => <FontAwesome name='th-list' size={30} />
         }
     },
     CreateDeck: {
