@@ -75,6 +75,10 @@ class QuizView extends Component {
                             textColor={{ color: yellow }}
                             style={styles.btn}
                             onPress={() => navigation.navigate('Home')} />
+                        <Button title="Manage Deck"
+                            textColor={{ color: yellow }}
+                            style={styles.btn}
+                            onPress={() => navigation.navigate('DeckDetail', { deck: deck })} />
                         <Button title="Restart Quiz"
                             textColor={{ color: yellow }}
                             style={styles.btn}
